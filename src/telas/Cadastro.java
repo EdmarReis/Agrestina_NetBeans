@@ -4,9 +4,13 @@
  */
 package telas;
 
+import dao.ClienteDAO;
+import dao.ProdutoDAO;
+import dao.UsuarioDAO;
 import java.awt.Image;
 import java.sql.*;
 import java.text.ParseException;
+import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
@@ -14,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.text.MaskFormatter;
+import model.Usuario;
 import net.proteanit.sql.DbUtils;
 import persistence.Dao;
 
@@ -50,6 +55,7 @@ public class Cadastro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         tab = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -68,10 +74,12 @@ public class Cadastro extends javax.swing.JFrame {
         btnLimparProduto = new javax.swing.JButton();
         btnSalvarProduto = new javax.swing.JButton();
         btnAlterarProduto = new javax.swing.JButton();
-        btnExcluirProduto = new javax.swing.JButton();
         btnPesquisarProduto = new javax.swing.JButton();
         btnFindFoto = new javax.swing.JButton();
         lblFoto = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtEstoque = new javax.swing.JTextField();
+        btnAcertoDeEstoque = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
@@ -88,8 +96,12 @@ public class Cadastro extends javax.swing.JFrame {
         btnLimparCLiente = new javax.swing.JButton();
         btnSalvarCliente = new javax.swing.JButton();
         btnAlterarCliente = new javax.swing.JButton();
-        btnExcluirCliente = new javax.swing.JButton();
         btnPesquisarCliente = new javax.swing.JButton();
+        lblEndereco1 = new javax.swing.JLabel();
+        rbAtivo = new javax.swing.JRadioButton();
+        rbInativo = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        lblOperador = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -155,13 +167,6 @@ public class Cadastro extends javax.swing.JFrame {
             }
         });
 
-        btnExcluirProduto.setText("Excluir");
-        btnExcluirProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirProdutoActionPerformed(evt);
-            }
-        });
-
         btnPesquisarProduto.setText("Pesquisar");
 
         btnFindFoto.setText("Buscar foto");
@@ -172,6 +177,17 @@ public class Cadastro extends javax.swing.JFrame {
         });
 
         lblFoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel2.setText("Estoque");
+
+        txtEstoque.setEnabled(false);
+
+        btnAcertoDeEstoque.setText("Acerto de estoque");
+        btnAcertoDeEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcertoDeEstoqueActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -189,31 +205,34 @@ public class Cadastro extends javax.swing.JFrame {
                                     .addComponent(lblCodigo)
                                     .addComponent(lblUnidade)
                                     .addComponent(lblPreco)
-                                    .addComponent(lblDescricao))
+                                    .addComponent(lblDescricao)
+                                    .addComponent(jLabel2))
                                 .addGap(51, 51, 51)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtCodigo)
-                                    .addComponent(cbUnidade, 0, 273, Short.MAX_VALUE)
-                                    .addComponent(txtPreco)
-                                    .addComponent(txtDescricao))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnAcertoDeEstoque))
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbUnidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 273, Short.MAX_VALUE)
+                                    .addComponent(txtPreco, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDescricao, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGap(115, 115, 115)
                                 .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
                                 .addComponent(btnLimparProduto)
-                                .addGap(18, 18, 18)
+                                .addGap(57, 57, 57)
                                 .addComponent(btnSalvarProduto)
-                                .addGap(18, 18, 18)
+                                .addGap(55, 55, 55)
                                 .addComponent(btnAlterarProduto)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnExcluirProduto)
-                                .addGap(18, 18, 18)
+                                .addGap(32, 32, 32)
                                 .addComponent(btnPesquisarProduto)
                                 .addGap(39, 39, 39)
                                 .addComponent(btnFindFoto)))
@@ -253,12 +272,17 @@ public class Cadastro extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAcertoDeEstoque))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimparProduto)
                     .addComponent(btnSalvarProduto)
                     .addComponent(btnAlterarProduto)
-                    .addComponent(btnExcluirProduto)
                     .addComponent(btnPesquisarProduto)
                     .addComponent(btnFindFoto))
                 .addGap(18, 18, 18)
@@ -323,14 +347,21 @@ public class Cadastro extends javax.swing.JFrame {
             }
         });
 
-        btnExcluirCliente.setText("Excluir");
-        btnExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirClienteActionPerformed(evt);
-            }
-        });
-
         btnPesquisarCliente.setText("Pesquisar");
+
+        lblEndereco1.setText("Ativo");
+        lblEndereco1.setToolTipText("");
+
+        buttonGroup1.add(rbAtivo);
+        rbAtivo.setSelected(true);
+        rbAtivo.setText("Ativo");
+
+        buttonGroup1.add(rbInativo);
+        rbInativo.setText("Inativo");
+
+        jLabel1.setText("Usuário:");
+
+        lblOperador.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -339,33 +370,40 @@ public class Cadastro extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(btnLimparCLiente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalvarCliente)
+                        .addGap(101, 101, 101)
+                        .addComponent(btnAlterarCliente)
+                        .addGap(89, 89, 89)
+                        .addComponent(btnPesquisarCliente)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNome)
                             .addComponent(lblCelular)
                             .addComponent(lblEmail)
                             .addComponent(lblEndereco)
-                            .addComponent(lblCpf))
+                            .addComponent(lblCpf)
+                            .addComponent(lblEndereco1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
                             .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtCelular, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtNomeCliente, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtCpf)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(btnLimparCLiente)
-                        .addGap(53, 53, 53)
-                        .addComponent(btnSalvarCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                        .addComponent(btnAlterarCliente)
-                        .addGap(54, 54, 54)
-                        .addComponent(btnExcluirCliente)
-                        .addGap(47, 47, 47)
-                        .addComponent(btnPesquisarCliente)
-                        .addGap(18, 18, 18)))
+                            .addComponent(txtCpf)
+                            .addComponent(rbInativo)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(rbAtivo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblOperador)
+                                .addGap(70, 70, 70)))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -391,12 +429,24 @@ public class Cadastro extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCpf)
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rbAtivo)
+                            .addComponent(jLabel1)
+                            .addComponent(lblOperador))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rbInativo)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblEndereco1)
+                        .addGap(32, 32, 32)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimparCLiente)
                     .addComponent(btnSalvarCliente)
                     .addComponent(btnAlterarCliente)
-                    .addComponent(btnExcluirCliente)
                     .addComponent(btnPesquisarCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,7 +468,7 @@ public class Cadastro extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -437,7 +487,7 @@ public class Cadastro extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tab, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                .addComponent(tab)
                 .addContainerGap())
         );
 
@@ -474,47 +524,33 @@ public class Cadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimparProdutoActionPerformed
 
     private void btnSalvarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarProdutoActionPerformed
+        ProdutoDAO produtoDao = new ProdutoDAO();
         if (txtProduto.getText().equals("") || txtCodigo.getText().equals("") || txtPreco.getText().equals("") || txtDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
         } else {
-            salvarProduto();
+            //salvarProduto();
+            produtoDao.salvarProduto(txtCodigo.getText(),txtPreco.getText(),txtDescricao.getText(),txtProduto.getText(),(String) cbUnidade.getSelectedItem(),caminhoFoto);
             limpaTelaProduto();
         }
     }//GEN-LAST:event_btnSalvarProdutoActionPerformed
 
     private void btnAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProdutoActionPerformed
         // TODO add your handling code here:
+        ProdutoDAO produtoDao = new ProdutoDAO();
         int question = JOptionPane.showConfirmDialog(null, "Deseja Salvar as alterações?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (txtProduto.getText().equals("") || txtCodigo.getText().equals("") || txtPreco.getText().equals("") || txtDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
         } else {
             if (question == JOptionPane.YES_OPTION) {
-                alterarProduto();
+                //alterarProduto();
+                produtoDao.alterarProduto(txtPreco.getText(),txtProduto.getText(),txtDescricao.getText(),(String) cbUnidade.getSelectedItem(),caminhoFoto,txtCodigo.getText());
                 limpaTelaProduto();
+                pesquisarProduto();
             } else {
                 JOptionPane.showMessageDialog(null, "Nenhuma alteração foi realizada.", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnAlterarProdutoActionPerformed
-
-    private void btnExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirProdutoActionPerformed
-        // TODO add your handling code here:
-        int question = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir o registro?", "Atenção", JOptionPane.YES_NO_OPTION);
-        if (txtProduto.getText().equals("") || txtCodigo.getText().equals("") || txtPreco.getText().equals("") || txtDescricao.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Exclusão não efetuada, verifique os campos");
-            limpaTelaProduto();
-        } else {
-            if (question == JOptionPane.YES_OPTION) {
-                excluirProduto();
-                limpaTelaProduto();
-                pesquisarProduto();
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi realizada.", "Aviso", JOptionPane.WARNING_MESSAGE);
-            }
-
-        }
-    }//GEN-LAST:event_btnExcluirProdutoActionPerformed
 
     private void btnFindFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindFotoActionPerformed
         // TODO add your handling code here:
@@ -548,47 +584,47 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void btnSalvarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarClienteActionPerformed
         // TODO add your handling code here:
-        if (txtNomeCliente.getText().equals("") || txtCelular.getText().equals("(  )      -    ") || txtEmail.getText().equals("") || txtEndereco.getText().equals("") || txtCpf.getText().equals("   .   .   -  ")) {
-            JOptionPane.showMessageDialog(null, "Existem campos vazios");
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        ClienteDAO clienteDAO = new ClienteDAO();
+        int verificaPerfil = usuarioDao.verificaPerfil(lblOperador.getText());
+        if (verificaPerfil == 1) {
+            if (txtNomeCliente.getText().equals("") || txtCelular.getText().equals("(  )      -    ") || txtEmail.getText().equals("") || txtEndereco.getText().equals("") || txtCpf.getText().equals("   .   .   -  ")) {
+                JOptionPane.showMessageDialog(null, "Existem campos vazios");
+            } else {
+                //salvarCliente();
+                clienteDAO.salvarCliente(txtNomeCliente.getText(),txtEndereco.getText(),txtCpf.getText(),txtCelular.getText(),txtEmail.getText(),rbAtivo.isSelected(),rbInativo.isSelected());
+                limpaTelaCliente();
+            }
         } else {
-            salvarCliente();
+            JOptionPane.showMessageDialog(null, "Perfil não autorizado para essa transação", "Erro", JOptionPane.ERROR_MESSAGE);
             limpaTelaCliente();
         }
     }//GEN-LAST:event_btnSalvarClienteActionPerformed
 
     private void btnAlterarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarClienteActionPerformed
         // TODO add your handling code here:
-        int question = JOptionPane.showConfirmDialog(null, "Deseja Salvar as alterações?", "Atenção", JOptionPane.YES_NO_OPTION);
-        if (txtNomeCliente.getText().equals("") || txtEndereco.getText().equals("") || txtCelular.getText().equals("") || txtCpf.getText().equals("") || txtEmail.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
-        } else {
-            if (question == JOptionPane.YES_OPTION) {
-                alterarCliente();
-                limpaTelaCliente();
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        ClienteDAO clienteDAO = new ClienteDAO();
+        int verificaPerfil = usuarioDao.verificaPerfil(lblOperador.getText());
+        if (verificaPerfil == 1 || verificaPerfil == 2) {
+            int question = JOptionPane.showConfirmDialog(null, "Deseja Salvar as alterações?", "Atenção", JOptionPane.YES_NO_OPTION);
+            if (txtNomeCliente.getText().equals("") || txtEndereco.getText().equals("") || txtCelular.getText().equals("") || txtCpf.getText().equals("") || txtEmail.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             } else {
-                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi realizada.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                if (question == JOptionPane.YES_OPTION) {
+                    //alterarCliente();
+                    clienteDAO.alterarCliente(txtNomeCliente.getText(),txtEndereco.getText(),txtCelular.getText(),txtEmail.getText(),txtCpf.getText(), rbAtivo.isSelected(),rbInativo.isSelected());
+                    limpaTelaCliente();
+                    pesquisarClientes();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nenhuma alteração foi realizada.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                }
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Perfil não autorizado para essa transação", "Erro", JOptionPane.ERROR_MESSAGE);
+            limpaTelaCliente();
         }
     }//GEN-LAST:event_btnAlterarClienteActionPerformed
-
-    private void btnExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirClienteActionPerformed
-        // TODO add your handling code here:
-        int question = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir o registro?", "Atenção", JOptionPane.YES_NO_OPTION);
-        if (txtNomeCliente.getText().equals("") || txtEndereco.getText().equals("") || txtCpf.getText().equals("") || txtCelular.getText().equals("") || txtEmail.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Exclusão não efetuada, verifique os campos");
-            limpaTelaCliente();
-        } else {
-            if (question == JOptionPane.YES_OPTION) {
-                excluirCliente();
-                limpaTelaCliente();
-                pesquisarClientes();
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi realizada.", "Aviso", JOptionPane.WARNING_MESSAGE);
-            }
-
-        }
-    }//GEN-LAST:event_btnExcluirClienteActionPerformed
 
     private void txtNomeClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeClienteKeyReleased
         // TODO add your handling code here:
@@ -599,6 +635,14 @@ public class Cadastro extends javax.swing.JFrame {
         // TODO add your handling code here:
         setCamposClientes();
     }//GEN-LAST:event_tblClientesMouseClicked
+
+    private void btnAcertoDeEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcertoDeEstoqueActionPerformed
+        // TODO add your handling code here:
+        Estoque principal = new Estoque();
+	principal.setVisible(true);
+	principal.setResizable(false);
+	principal.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnAcertoDeEstoqueActionPerformed
 
     /**
      * @param args the command line arguments
@@ -634,31 +678,86 @@ public class Cadastro extends javax.swing.JFrame {
             }
         });
     }
-    
-    private void excluirProduto() {
-        String sql = "delete from produtos where codigo = ?";
-        String sqlConsultaProduto = "select * from produtos where codigo = ?";
-        try {
-            pst = conexao.prepareStatement(sqlConsultaProduto);
-            pst.setString(1, txtCodigo.getText());
-            rs = pst.executeQuery();
 
-            if (rs.next()) {
-                pst = conexao.prepareStatement(sql);
-                pst.setString(1, txtCodigo.getText());
-
-                boolean alteracao = pst.execute();
-                JOptionPane.showMessageDialog(null, "O Produto com código " + txtCodigo.getText() + " foi excluído.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Exclusão não efetuada. Não foi encontrado produto com código " + txtCodigo.getText(), "Erro!", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+    //metodo para preencher automaticamente os campos quando selecionada a linha na tabela - funciona junto com o evento de click do mouise na jtable
+    private void setCamposProdutos() {
+        int setar = tblProdutos.getSelectedRow();
+        txtProduto.setText(tblProdutos.getModel().getValueAt(setar, 0).toString());
+        txtCodigo.setText(tblProdutos.getModel().getValueAt(setar, 1).toString());
+        txtPreco.setText(tblProdutos.getModel().getValueAt(setar, 2).toString());
+        txtDescricao.setText(tblProdutos.getModel().getValueAt(setar, 4).toString());
+        cbUnidade.setSelectedItem(tblProdutos.getModel().getValueAt(setar, 3).toString());
+        //txtIdProduto.setText(tblProdutos.getModel().getValueAt(setar, 0).toString());
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(tblProdutos.getModel().getValueAt(setar, 5).toString()).getImage().getScaledInstance(140, 140, Image.SCALE_DEFAULT));
+        lblFoto.setIcon(imageIcon);
+        txtEstoque.setText(tblProdutos.getModel().getValueAt(setar, 6).toString());
+        //lblFoto.setIcon("");
+        //txtFoto.setText(tblProdutos.getModel().getValueAt(setar, 5).toString());
+        //ImageIcon imageIcon = new ImageIcon(new ImageIcon("/Users/edmar_sr/Desktop/Edmar/Programacao/Java/Agrestina/imagensProdutos/"+txtFoto.getText()+".png").getImage().getScaledInstance(140, 140, Image.SCALE_DEFAULT));
+        //lblFoto.setIcon(imageIcon);
     }
 
-    private void alterarProduto() {
+    private void limpaTelaProduto() {
+        txtProduto.setText(null);
+        txtPreco.setText(null);
+        txtCodigo.setText(null);
+        txtDescricao.setText(null);
+        txtEstoque.setText(null);
+        lblFoto.setIcon(null);
+    }
+
+    
+    
+    private void limpaTelaCliente() {
+        txtNomeCliente.setText(null);
+        txtCelular.setText(null);
+        txtCpf.setText(null);
+        txtEmail.setText(null);
+        txtEndereco.setText(null);
+        //txtIdCliente.setText(null);
+    }
+    
+    private void setCamposClientes() {
+        int setar = tblClientes.getSelectedRow();
+        //txtIdCliente.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
+        txtNomeCliente.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
+        txtEndereco.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
+        txtCpf.setText(tblClientes.getModel().getValueAt(setar, 2).toString());
+        txtCelular.setText(tblClientes.getModel().getValueAt(setar, 3).toString());
+        txtEmail.setText(tblClientes.getModel().getValueAt(setar, 4).toString());
+        if(tblClientes.getValueAt(setar, 5).equals(true)){
+            rbAtivo.setSelected(true);
+        }
+        if(tblClientes.getValueAt(setar, 5).equals(false)){
+            rbInativo.setSelected(true);
+        }
+    }
+    
+    //salvarProduto(txtCodigo.getText(),txtPreco.getText(),txtDescricao.getText(),txtProduto.getText(),(String) cbUnidade.getSelectedItem(),caminhoFoto);
+    private void salvarProduto() {
+        String sql = "insert into produtos (codigo,preco,descricao,nome,unidade,foto,estoque) values (?,?,?,?,?,?,0)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtCodigo.getText());
+            pst.setString(2, txtPreco.getText());
+            pst.setString(3, txtDescricao.getText());
+            pst.setString(4, txtProduto.getText());
+            pst.setString(5, (String) cbUnidade.getSelectedItem());
+            //pst.setString(6, txtFoto.getText());
+            pst.setString(6, caminhoFoto);
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Produto incluído com sucesso");
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // TODO: handle exception
+            JOptionPane.showMessageDialog(null, "Não é possível inserir o mesmo código duas vezes." + "\n" + e, "Erro!", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e, "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+   
+    /*private void alterarProduto() {
         String sql = "update produtos set preco = ?, nome = ?, descricao = ?, unidade = ?, foto = ? where codigo = ?";
         try {
             pst = conexao.prepareStatement(sql);
@@ -681,9 +780,25 @@ public class Cadastro extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e, "Erro!", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    }*/
+    
+    public void pesquisarClientes() {
+        String sql = "select * from clientes where nome like ? ORDER BY nome ASC";
+        //String sql = "select * from clientes where nome like ? and ativo = true";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtNomeCliente.getText() + "%");
+            rs = pst.executeQuery();
 
-    //metodo para preencher automaticamente a jtable com like do que for digitado no campo produto - funciona junto com o evento de key do campo produto
+            tblClientes.setModel(DbUtils.resultSetToTableModel(rs));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+    
+     //metodo para preencher automaticamente a jtable com like do que for digitado no campo produto - funciona junto com o evento de key do campo produto
     private void pesquisarProduto() {
         String sql = "select * from produtos where nome like ?";
         try {
@@ -699,58 +814,33 @@ public class Cadastro extends javax.swing.JFrame {
 
     }
 
-    //metodo para preencher automaticamente os campos quando selecionada a linha na tabela - funciona junto com o evento de click do mouise na jtable
-    private void setCamposProdutos() {
-        int setar = tblProdutos.getSelectedRow();
-        txtProduto.setText(tblProdutos.getModel().getValueAt(setar, 0).toString());
-        txtCodigo.setText(tblProdutos.getModel().getValueAt(setar, 1).toString());
-        txtPreco.setText(tblProdutos.getModel().getValueAt(setar, 2).toString());
-        txtDescricao.setText(tblProdutos.getModel().getValueAt(setar, 4).toString());
-        cbUnidade.setSelectedItem(tblProdutos.getModel().getValueAt(setar, 3).toString());
-        //txtIdProduto.setText(tblProdutos.getModel().getValueAt(setar, 0).toString());
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon(tblProdutos.getModel().getValueAt(setar, 5).toString()).getImage().getScaledInstance(140, 140, Image.SCALE_DEFAULT));
-        lblFoto.setIcon(imageIcon);
-        //lblFoto.setIcon("");
-        //txtFoto.setText(tblProdutos.getModel().getValueAt(setar, 5).toString());
-        //ImageIcon imageIcon = new ImageIcon(new ImageIcon("/Users/edmar_sr/Desktop/Edmar/Programacao/Java/Agrestina/imagensProdutos/"+txtFoto.getText()+".png").getImage().getScaledInstance(140, 140, Image.SCALE_DEFAULT));
-        //lblFoto.setIcon(imageIcon);
-    }
-
-    private void limpaTelaProduto() {
-        txtProduto.setText(null);
-        txtPreco.setText(null);
-        txtCodigo.setText(null);
-        txtDescricao.setText(null);
-        lblFoto.setIcon(null);
-    }
-
-    private void salvarProduto() {
-
-        String sql = "insert into produtos (codigo,preco,descricao,nome,unidade,foto) values (?,?,?,?,?,?)";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtCodigo.getText());
-            pst.setString(2, txtPreco.getText());
-            pst.setString(3, txtDescricao.getText());
-            pst.setString(4, txtProduto.getText());
-            pst.setString(5, (String) cbUnidade.getSelectedItem());
-            //pst.setString(6, txtFoto.getText());
-            pst.setString(6, caminhoFoto);
-            pst.execute();
-
-            JOptionPane.showMessageDialog(null, "Produto incluído com sucesso");
-
-        } catch (SQLIntegrityConstraintViolationException e) {
-            // TODO: handle exception
-            JOptionPane.showMessageDialog(null, "Não é possível inserir o mesmo código duas vezes." + "\n" + e, "Erro!", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e, "Erro!", JOptionPane.ERROR_MESSAGE);
-        }
-    }
     
-    private void salvarCliente() {
+    /*private void excluirProduto() {
+        String sql = "delete from produtos where codigo = ?";
+        String sqlConsultaProduto = "select * from produtos where codigo = ?";
+        try {
+            pst = conexao.prepareStatement(sqlConsultaProduto);
+            pst.setString(1, txtCodigo.getText());
+            rs = pst.executeQuery();
 
-        String sql = "insert into clientes (nome,endereco,cpf_cnpj,telefone,email) values (?,?,?,?,?)";
+            if (rs.next()) {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtCodigo.getText());
+
+                boolean alteracao = pst.execute();
+                JOptionPane.showMessageDialog(null, "O Produto com código " + txtCodigo.getText() + " foi excluído.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Exclusão não efetuada. Não foi encontrado produto com código " + txtCodigo.getText(), "Erro!", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }*/
+    
+    /*private void salvarCliente() {
+        //String sql = "insert into clientes (nome,endereco,cpf_cnpj,telefone,email) values (?,?,?,?,?)";
+        String sql = "insert into clientes (nome,endereco,cpf_cnpj,telefone,email,ativo) values (?,?,?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtNomeCliente.getText());
@@ -758,6 +848,12 @@ public class Cadastro extends javax.swing.JFrame {
             pst.setString(3, txtCpf.getText());
             pst.setString(4, txtCelular.getText());
             pst.setString(5, txtEmail.getText());
+            if(rbAtivo.isSelected()){
+                pst.setBoolean(6, true);
+            }
+            if(rbInativo.isSelected()){
+                pst.setBoolean(6, false);
+            }
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Cliente incluído com sucesso");
@@ -769,57 +865,26 @@ public class Cadastro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e, "Erro!", JOptionPane.ERROR_MESSAGE);
         }
 
-    }
+    }*/
     
-    private void limpaTelaCliente() {
-        txtNomeCliente.setText(null);
-        txtCelular.setText(null);
-        txtCpf.setText(null);
-        txtEmail.setText(null);
-        txtEndereco.setText(null);
-        //txtIdCliente.setText(null);
-    }
-    
-    private void setCamposClientes() {
-        int setar = tblClientes.getSelectedRow();
-        //txtIdCliente.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
-        txtNomeCliente.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
-        txtEndereco.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
-        txtCpf.setText(tblClientes.getModel().getValueAt(setar, 2).toString());
-        txtCelular.setText(tblClientes.getModel().getValueAt(setar, 3).toString());
-        txtEmail.setText(tblClientes.getModel().getValueAt(setar, 4).toString());
-    }
-    
-    private void pesquisarClientes() {
-        String sql = "select * from clientes where nome like ?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtNomeCliente.getText() + "%");
-            rs = pst.executeQuery();
+    /*private void alterarCliente() {
 
-            tblClientes.setModel(DbUtils.resultSetToTableModel(rs));
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-
-    }
-    
-    private void alterarCliente() {
-
-        //String sql = "update clientes set nome = ?, endereco = ?, cpf_cnpj = ?, telefone = ?, email = ? where id = ?";
-        String sql = "update clientes set nome = ?, endereco = ?, telefone = ?, email = ? where cpf_cnpj = ?";
+        String sql = "update clientes set nome = ?, endereco = ?, telefone = ?, email = ?, ativo = ? where cpf_cnpj = ?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtNomeCliente.getText());
             pst.setString(2, txtEndereco.getText());
-            //pst.setString(3, cpf.getText());
             pst.setString(3, txtCelular.getText());
             pst.setString(4, txtEmail.getText());
-            pst.setString(5, txtCpf.getText());
-            //pst.setString(6, txtIdCliente.getText());
+            pst.setString(6, txtCpf.getText());
+            if(rbAtivo.isSelected()){
+                pst.setBoolean(5, true);
+            }
+            if(rbInativo.isSelected()){
+                pst.setBoolean(5, false);
+            }
             int alteracao = pst.executeUpdate();
-            //System.out.println(alteracao);
+            
 
             if (alteracao > 0) {
                 JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso");
@@ -832,9 +897,9 @@ public class Cadastro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
 
-    }
+    }*/
     
-    private void excluirCliente() {
+    /*private void excluirCliente() {
         String sql = "delete from clientes where cpf_cnpj = ?";
         try {
             pst = conexao.prepareStatement(sql);
@@ -846,6 +911,28 @@ public class Cadastro extends javax.swing.JFrame {
         }
     }
     
+    private void exclusaoLogicaCliente() {
+        String sql = "update clientes set ativo = false where cpf_cnpj = ?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtCpf.getText());
+            int alteracao = pst.executeUpdate();
+
+            if (alteracao > 0) {
+                JOptionPane.showMessageDialog(null, "Exclusão efetuada com sucesso");
+                pesquisarClientes();
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi realizada.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }*/
+    
+    void exportarNome(Usuario usuario) {
+        lblOperador.setText(usuario.getNome());
+    }
+    
     //JLabel lblFoto = new JLabel("Foto");
     Connection conexao = null;
     PreparedStatement pst = null;
@@ -854,10 +941,9 @@ public class Cadastro extends javax.swing.JFrame {
     private String caminhoFoto;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAcertoDeEstoque;
     private javax.swing.JButton btnAlterarCliente;
     private javax.swing.JButton btnAlterarProduto;
-    private javax.swing.JButton btnExcluirCliente;
-    private javax.swing.JButton btnExcluirProduto;
     private javax.swing.JButton btnFindFoto;
     private javax.swing.JButton btnLimparCLiente;
     private javax.swing.JButton btnLimparProduto;
@@ -865,7 +951,10 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JButton btnPesquisarProduto;
     private javax.swing.JButton btnSalvarCliente;
     private javax.swing.JButton btnSalvarProduto;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbUnidade;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -882,21 +971,26 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEndereco;
+    private javax.swing.JLabel lblEndereco1;
     private javax.swing.JLabel lblFoto;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPreco;
     private javax.swing.JLabel lblProduto;
     private javax.swing.JLabel lblUnidade;
+    public javax.swing.JRadioButton rbAtivo;
+    public javax.swing.JRadioButton rbInativo;
     private javax.swing.JTabbedPane tab;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblProdutos;
-    private javax.swing.JTextField txtCelular;
+    public javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtCpf;
+    public javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtDescricao;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEndereco;
-    private javax.swing.JTextField txtNomeCliente;
+    public javax.swing.JTextField txtEmail;
+    public javax.swing.JTextField txtEndereco;
+    private javax.swing.JTextField txtEstoque;
+    public javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtPreco;
     private javax.swing.JTextField txtProduto;
     // End of variables declaration//GEN-END:variables

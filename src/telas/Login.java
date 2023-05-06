@@ -5,7 +5,10 @@
 package telas;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Usuario;
 import persistence.Dao;
 
 /**
@@ -155,10 +158,15 @@ public class Login extends javax.swing.JFrame {
 				principal.setVisible(true);
 				principal.setResizable(false);
 				principal.setLocationRelativeTo(null);
+                                Usuario usuario = new Usuario();
+                                usuario.setNome(txtUsuario.getText());
+                                principal.exportarNome(usuario);
+                                Logger.getLogger(Cadastro.class.getName()).log(Level.WARNING, "Usuário "+txtUsuario.getText()+" logado", "");
                                 this.dispose();
 				conexao.close();
 			}else {
 				JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválido(s)");
+                                Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, "Tentativa de login, usuario "+txtUsuario.getText(), "");
 			}
 
 		} catch (Exception e) {
