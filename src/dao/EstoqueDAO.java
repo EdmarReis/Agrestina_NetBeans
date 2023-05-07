@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLIntegrityConstraintViolationException;
 import javax.swing.JOptionPane;
+import model.Cliente;
 import persistence.Dao;
+import telas.EstoqueTela;
 
 /**
  *
@@ -20,12 +22,12 @@ public class EstoqueDAO {
     PreparedStatement pst = null;
     ResultSet rs = null;
     
-    //conexao = Dao.conector();
 
     public String pesquisaEstoque(double codigo) {
         conexao = Dao.conector();
         String sql = "select estoque from produtos where codigo = ?";
-        double estoque = 0;
+        //double estoque = 0;
+        String estoque = "";
         try {
             
             pst = conexao.prepareStatement(sql);
@@ -33,15 +35,18 @@ public class EstoqueDAO {
             rs = pst.executeQuery();
             
             if (rs.next()) {
-                estoque = rs.getDouble("estoque");
+                //estoque = rs.getDouble("estoque");
+                estoque = rs.getString("estoque");
             }else{
                 JOptionPane.showMessageDialog(null, "Código " + codigo + " não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                estoque = "";
             }
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e, "Erro ao pesquisar o estoque!", JOptionPane.ERROR_MESSAGE);
         }
-        return Double.toString(estoque);
+        //return Double.toString(estoque);
+        return estoque;
     }
 
     public String AtualizaEstoque(double entradaSaida, String codigo) {
@@ -55,10 +60,12 @@ public class EstoqueDAO {
             pst = conexao.prepareStatement(sql);
             pst.setDouble(1, atualizado);
             pst.setString(2, codigo);
-            pst.executeUpdate();
-
-            JOptionPane.showMessageDialog(null, "Estoque atualidado");
-
+            int result = pst.executeUpdate();
+            
+            if(result == 1){
+                JOptionPane.showMessageDialog(null, "Estoque atualizado ");
+            }
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e, "Erro ao atualiza o estoque!", JOptionPane.ERROR_MESSAGE);
         }

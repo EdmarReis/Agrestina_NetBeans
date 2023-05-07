@@ -21,9 +21,11 @@ public class ProdutoDAO {
     PreparedStatement pst = null;
     ResultSet rs = null;
     
-    public void alterarProduto(String preco, String produto, String descricao, String unidade, String caminhoFoto, String codigo) {
+    public void alterarProduto(String preco, String produto, String descricao, String unidade, String caminhoFoto, String codigo, boolean ativo, boolean inativo) {
+    //public void alterarProduto(String preco, String produto, String descricao, String unidade, String caminhoFoto, String codigo) {    
         conexao = Dao.conector();
-        String sql = "update produtos set preco = ?, nome = ?, descricao = ?, unidade = ?, foto = ? where codigo = ?";
+        String sql = "update produtos set preco = ?, nome = ?, descricao = ?, unidade = ?, foto = ?, ativo = ? where codigo = ?";
+        //String sql = "update produtos set preco = ?, nome = ?, descricao = ?, unidade = ?, foto = ? where codigo = ?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, preco);
@@ -32,7 +34,13 @@ public class ProdutoDAO {
             pst.setString(4, unidade);
             //pst.setString(5, txtFoto.getText());
             pst.setString(5, caminhoFoto);
-            pst.setString(6, codigo);
+            pst.setString(7, codigo);
+            if(ativo){
+                pst.setBoolean(6, true);
+            }
+            if(inativo){
+                pst.setBoolean(6, false);
+            }
             int alteracao = pst.executeUpdate();
 
             if (alteracao > 0) {
@@ -42,13 +50,15 @@ public class ProdutoDAO {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e, "Erro!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, "Erro ao alterar!", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    public void salvarProduto(String codigo, String preco, String descricao, String produto, String unidade, String caminhoFoto) {
+    public void salvarProduto(String codigo, String preco, String descricao, String produto, String unidade, String caminhoFoto, boolean ativo, boolean inativo) {
+    //public void salvarProduto(String codigo, String preco, String descricao, String produto, String unidade, String caminhoFoto) {    
         conexao = Dao.conector();
-        String sql = "insert into produtos (codigo,preco,descricao,nome,unidade,foto,estoque) values (?,?,?,?,?,?,0)";
+        String sql = "insert into produtos (codigo,preco,descricao,nome,unidade,foto,estoque,ativo) values (?,?,?,?,?,?,?,?)";
+        //String sql = "insert into produtos (codigo,preco,descricao,nome,unidade,foto,estoque,ativo) values (?,?,?,?,?,?,0,true)";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, codigo);
@@ -56,17 +66,23 @@ public class ProdutoDAO {
             pst.setString(3, descricao);
             pst.setString(4, produto);
             pst.setString(5, unidade);
-            //pst.setString(6, txtFoto.getText());
+            pst.setString(7, "0");
             pst.setString(6, caminhoFoto);
+            if(ativo){
+                pst.setBoolean(8, true);
+            }
+            if(inativo){
+                pst.setBoolean(8, false);
+            }
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Produto incluído com sucesso");
 
         } catch (SQLIntegrityConstraintViolationException e) {
             // TODO: handle exception
-            JOptionPane.showMessageDialog(null, "Não é possível inserir o mesmo código duas vezes." + "\n" + e, "Erro!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Código ja existe no banco ou algum registro obrigatório não foi preenchido. " + "\n" + e, "Erro!", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e, "Erro!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, "Erro ao salvar!", JOptionPane.ERROR_MESSAGE);
         }
     }
     

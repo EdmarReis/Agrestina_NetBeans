@@ -10,6 +10,8 @@ import dao.UsuarioDAO;
 import java.awt.Image;
 import java.sql.*;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -56,6 +58,7 @@ public class Cadastro extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         tab = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -80,6 +83,11 @@ public class Cadastro extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtEstoque = new javax.swing.JTextField();
         btnAcertoDeEstoque = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        rbAtivoPro = new javax.swing.JRadioButton();
+        rbInativoPro = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
+        lblOperadorPro = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
@@ -102,8 +110,6 @@ public class Cadastro extends javax.swing.JFrame {
         rbInativo = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -189,6 +195,19 @@ public class Cadastro extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Ativo");
+
+        buttonGroup2.add(rbAtivoPro);
+        rbAtivoPro.setSelected(true);
+        rbAtivoPro.setText("Ativo");
+
+        buttonGroup2.add(rbInativoPro);
+        rbInativoPro.setText("Inativo");
+
+        jLabel4.setText("Usuário: ");
+
+        lblOperadorPro.setText("usuario");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -206,24 +225,32 @@ public class Cadastro extends javax.swing.JFrame {
                                     .addComponent(lblUnidade)
                                     .addComponent(lblPreco)
                                     .addComponent(lblDescricao)
-                                    .addComponent(jLabel2))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
                                 .addGap(51, 51, 51)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnAcertoDeEstoque))
-                                    .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbUnidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 273, Short.MAX_VALUE)
-                                    .addComponent(txtPreco, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDescricao, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(rbAtivoPro)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rbInativoPro)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnAcertoDeEstoque))
+                                            .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cbUnidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 273, Short.MAX_VALUE)
+                                            .addComponent(txtPreco, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtDescricao, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGap(115, 115, 115)
                                 .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                                 .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
@@ -233,10 +260,17 @@ public class Cadastro extends javax.swing.JFrame {
                                 .addGap(55, 55, 55)
                                 .addComponent(btnAlterarProduto)
                                 .addGap(32, 32, 32)
-                                .addComponent(btnPesquisarProduto)
-                                .addGap(39, 39, 39)
-                                .addComponent(btnFindFoto)))
-                        .addGap(0, 29, Short.MAX_VALUE)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblOperadorPro))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(btnPesquisarProduto)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(btnFindFoto)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 32, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -278,7 +312,14 @@ public class Cadastro extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnAcertoDeEstoque))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(rbAtivoPro)
+                    .addComponent(rbInativoPro)
+                    .addComponent(jLabel4)
+                    .addComponent(lblOperadorPro))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimparProduto)
                     .addComponent(btnSalvarProduto)
@@ -361,7 +402,7 @@ public class Cadastro extends javax.swing.JFrame {
 
         jLabel1.setText("Usuário:");
 
-        lblOperador.setText("jLabel2");
+        lblOperador.setText("usuario");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -455,25 +496,6 @@ public class Cadastro extends javax.swing.JFrame {
 
         tab.addTab("Clientes", jPanel3);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        tab.addTab("Futuro", jPanel4);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -525,11 +547,19 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void btnSalvarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarProdutoActionPerformed
         ProdutoDAO produtoDao = new ProdutoDAO();
-        if (txtProduto.getText().equals("") || txtCodigo.getText().equals("") || txtPreco.getText().equals("") || txtDescricao.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        int verificaPerfil = usuarioDao.verificaPerfil(lblOperador.getText());
+        if (verificaPerfil == 1) {
+            if (txtProduto.getText().equals("") || txtCodigo.getText().equals("") || txtPreco.getText().equals("") || txtDescricao.getText().equals("") || lblFoto.getText().equals(null)) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            } else {
+                //salvarProduto();
+                produtoDao.salvarProduto(txtCodigo.getText(), txtPreco.getText(), txtDescricao.getText(), txtProduto.getText(), (String) cbUnidade.getSelectedItem(), caminhoFoto,rbAtivoPro.isSelected(),rbInativoPro.isSelected());
+                //produtoDao.salvarProduto(txtCodigo.getText(), txtPreco.getText(), txtDescricao.getText(), txtProduto.getText(), (String) cbUnidade.getSelectedItem(), caminhoFoto);
+                limpaTelaProduto();
+            }
         } else {
-            //salvarProduto();
-            produtoDao.salvarProduto(txtCodigo.getText(),txtPreco.getText(),txtDescricao.getText(),txtProduto.getText(),(String) cbUnidade.getSelectedItem(),caminhoFoto);
+            JOptionPane.showMessageDialog(null, "Perfil não autorizado para essa transação", "Erro", JOptionPane.ERROR_MESSAGE);
             limpaTelaProduto();
         }
     }//GEN-LAST:event_btnSalvarProdutoActionPerformed
@@ -537,18 +567,26 @@ public class Cadastro extends javax.swing.JFrame {
     private void btnAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProdutoActionPerformed
         // TODO add your handling code here:
         ProdutoDAO produtoDao = new ProdutoDAO();
-        int question = JOptionPane.showConfirmDialog(null, "Deseja Salvar as alterações?", "Atenção", JOptionPane.YES_NO_OPTION);
-        if (txtProduto.getText().equals("") || txtCodigo.getText().equals("") || txtPreco.getText().equals("") || txtDescricao.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
-        } else {
-            if (question == JOptionPane.YES_OPTION) {
-                //alterarProduto();
-                produtoDao.alterarProduto(txtPreco.getText(),txtProduto.getText(),txtDescricao.getText(),(String) cbUnidade.getSelectedItem(),caminhoFoto,txtCodigo.getText());
-                limpaTelaProduto();
-                pesquisarProduto();
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        int verificaPerfil = usuarioDao.verificaPerfil(lblOperador.getText());
+        if (verificaPerfil == 1 || verificaPerfil == 2) {
+            int question = JOptionPane.showConfirmDialog(null, "Deseja Salvar as alterações?", "Atenção", JOptionPane.YES_NO_OPTION);
+            if (txtProduto.getText().equals("") || txtCodigo.getText().equals("") || txtPreco.getText().equals("") || txtDescricao.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             } else {
-                JOptionPane.showMessageDialog(null, "Nenhuma alteração foi realizada.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                if (question == JOptionPane.YES_OPTION) {
+                    //alterarProduto();
+                    produtoDao.alterarProduto(txtPreco.getText(), txtProduto.getText(), txtDescricao.getText(), (String) cbUnidade.getSelectedItem(), caminhoFoto, txtCodigo.getText(),rbAtivoPro.isSelected(),rbInativoPro.isSelected());
+                    //produtoDao.alterarProduto(txtPreco.getText(), txtProduto.getText(), txtDescricao.getText(), (String) cbUnidade.getSelectedItem(), caminhoFoto, txtCodigo.getText());
+                    limpaTelaProduto();
+                    pesquisarProduto();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nenhuma alteração foi realizada.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Perfil não autorizado para essa transação", "Erro", JOptionPane.ERROR_MESSAGE);
+            limpaTelaProduto();
         }
     }//GEN-LAST:event_btnAlterarProdutoActionPerformed
 
@@ -638,7 +676,7 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void btnAcertoDeEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcertoDeEstoqueActionPerformed
         // TODO add your handling code here:
-        Estoque principal = new Estoque();
+        EstoqueTela principal = new EstoqueTela();
 	principal.setVisible(true);
 	principal.setResizable(false);
 	principal.setLocationRelativeTo(null);
@@ -690,7 +728,14 @@ public class Cadastro extends javax.swing.JFrame {
         //txtIdProduto.setText(tblProdutos.getModel().getValueAt(setar, 0).toString());
         ImageIcon imageIcon = new ImageIcon(new ImageIcon(tblProdutos.getModel().getValueAt(setar, 5).toString()).getImage().getScaledInstance(140, 140, Image.SCALE_DEFAULT));
         lblFoto.setIcon(imageIcon);
+        caminhoFoto = tblProdutos.getModel().getValueAt(setar, 5).toString();
         txtEstoque.setText(tblProdutos.getModel().getValueAt(setar, 6).toString());
+        if(tblProdutos.getValueAt(setar, 7).equals(true)){
+            rbAtivoPro.setSelected(true);
+        }
+        if(tblProdutos.getValueAt(setar, 7).equals(false)){
+            rbInativoPro.setSelected(true);
+        }
         //lblFoto.setIcon("");
         //txtFoto.setText(tblProdutos.getModel().getValueAt(setar, 5).toString());
         //ImageIcon imageIcon = new ImageIcon(new ImageIcon("/Users/edmar_sr/Desktop/Edmar/Programacao/Java/Agrestina/imagensProdutos/"+txtFoto.getText()+".png").getImage().getScaledInstance(140, 140, Image.SCALE_DEFAULT));
@@ -704,6 +749,7 @@ public class Cadastro extends javax.swing.JFrame {
         txtDescricao.setText(null);
         txtEstoque.setText(null);
         lblFoto.setIcon(null);
+        caminhoFoto = null;
     }
 
     
@@ -734,7 +780,7 @@ public class Cadastro extends javax.swing.JFrame {
     }
     
     //salvarProduto(txtCodigo.getText(),txtPreco.getText(),txtDescricao.getText(),txtProduto.getText(),(String) cbUnidade.getSelectedItem(),caminhoFoto);
-    private void salvarProduto() {
+    /*private void salvarProduto() {
         String sql = "insert into produtos (codigo,preco,descricao,nome,unidade,foto,estoque) values (?,?,?,?,?,?,0)";
         try {
             pst = conexao.prepareStatement(sql);
@@ -755,7 +801,7 @@ public class Cadastro extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e, "Erro!", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    }*/
    
     /*private void alterarProduto() {
         String sql = "update produtos set preco = ?, nome = ?, descricao = ?, unidade = ?, foto = ? where codigo = ?";
@@ -800,7 +846,7 @@ public class Cadastro extends javax.swing.JFrame {
     
      //metodo para preencher automaticamente a jtable com like do que for digitado no campo produto - funciona junto com o evento de key do campo produto
     private void pesquisarProduto() {
-        String sql = "select * from produtos where nome like ?";
+        String sql = "SELECT * FROM produtos WHERE nome LIKE ? ORDER BY nome";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtProduto.getText() + "%");
@@ -931,6 +977,7 @@ public class Cadastro extends javax.swing.JFrame {
     
     void exportarNome(Usuario usuario) {
         lblOperador.setText(usuario.getNome());
+        lblOperadorPro.setText(usuario.getNome());
     }
     
     //JLabel lblFoto = new JLabel("Foto");
@@ -952,17 +999,18 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvarCliente;
     private javax.swing.JButton btnSalvarProduto;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbUnidade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblCelular;
@@ -975,11 +1023,14 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JLabel lblFoto;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblOperador;
+    private javax.swing.JLabel lblOperadorPro;
     private javax.swing.JLabel lblPreco;
     private javax.swing.JLabel lblProduto;
     private javax.swing.JLabel lblUnidade;
     public javax.swing.JRadioButton rbAtivo;
+    private javax.swing.JRadioButton rbAtivoPro;
     public javax.swing.JRadioButton rbInativo;
+    private javax.swing.JRadioButton rbInativoPro;
     private javax.swing.JTabbedPane tab;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblProdutos;
