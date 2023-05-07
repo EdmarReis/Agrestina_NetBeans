@@ -186,7 +186,7 @@ public class Cadastro extends javax.swing.JFrame {
 
         jLabel2.setText("Estoque");
 
-        txtEstoque.setEnabled(false);
+        txtEstoque.setEditable(false);
 
         btnAcertoDeEstoque.setText("Acerto de estoque");
         btnAcertoDeEstoque.addActionListener(new java.awt.event.ActionListener() {
@@ -232,19 +232,17 @@ public class Cadastro extends javax.swing.JFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(rbAtivoPro)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(rbInativoPro)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnAcertoDeEstoque))
-                                            .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cbUnidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 273, Short.MAX_VALUE)
-                                            .addComponent(txtPreco, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtDescricao, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
+                                        .addComponent(rbInativoPro))
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnAcertoDeEstoque))
+                                        .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cbUnidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 273, Short.MAX_VALUE)
+                                        .addComponent(txtPreco, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtDescricao, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()

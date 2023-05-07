@@ -127,21 +127,19 @@
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="rbInativoPro" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                      <Group type="102" attributes="0">
-                                                          <Component id="txtEstoque" min="-2" pref="76" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="btnAcertoDeEstoque" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="txtCodigo" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="cbUnidade" alignment="0" pref="273" max="32767" attributes="0"/>
-                                                      <Component id="txtPreco" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtDescricao" alignment="0" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="txtEstoque" min="-2" pref="76" max="-2" attributes="0"/>
+                                                      <EmptySpace max="32767" attributes="0"/>
+                                                      <Component id="btnAcertoDeEstoque" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="txtCodigo" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="cbUnidade" alignment="0" pref="273" max="32767" attributes="0"/>
+                                                  <Component id="txtPreco" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtDescricao" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -388,7 +386,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtEstoque">
                   <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="editable" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnAcertoDeEstoque">
