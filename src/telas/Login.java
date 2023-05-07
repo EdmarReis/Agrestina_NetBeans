@@ -47,19 +47,32 @@ public class Login extends javax.swing.JFrame {
         btnLogar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(300, 300));
         setResizable(false);
+        getContentPane().setLayout(null);
 
+        lblUsuario.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        lblUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lblUsuario.setText("Usuário");
+        getContentPane().add(lblUsuario);
+        lblUsuario.setBounds(24, 83, 62, 23);
 
+        lblSenha.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        lblSenha.setForeground(new java.awt.Color(255, 255, 255));
         lblSenha.setText("Senha");
+        getContentPane().add(lblSenha);
+        lblSenha.setBounds(24, 136, 52, 23);
 
         txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtUsuarioKeyPressed(evt);
             }
         });
+        getContentPane().add(txtUsuario);
+        txtUsuario.setBounds(130, 80, 121, 23);
 
         txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -69,6 +82,8 @@ public class Login extends javax.swing.JFrame {
                 txtSenhaKeyReleased(evt);
             }
         });
+        getContentPane().add(txtSenha);
+        txtSenha.setBounds(130, 130, 120, 23);
 
         btnLogar.setText("Login");
         btnLogar.addActionListener(new java.awt.event.ActionListener() {
@@ -76,62 +91,27 @@ public class Login extends javax.swing.JFrame {
                 btnLogarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnLogar);
+        btnLogar.setBounds(114, 200, 72, 23);
 
-        jLabel1.setFont(new java.awt.Font("Malayalam MN", 2, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Malayalam MN", 2, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Acesso ao sistema Agrestina");
         jLabel1.setToolTipText("");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(30, 30, 250, 21);
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("V 1.0.0");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(220, 240, 50, 13);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(btnLogar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUsuario)
-                            .addComponent(lblSenha))
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                            .addComponent(txtSenha))))
-                .addContainerGap(82, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 68, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(61, 61, 61))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(22, 22, 22))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsuario)
-                    .addComponent(txtUsuario))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSenha)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addComponent(btnLogar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon("/Users/edmar_sr/NetBeansProjects/Agrestina/imagensProdutos/login.jpg")); // NOI18N
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(-2, 3, 400, 400);
 
         pack();
         setLocationRelativeTo(null);
@@ -200,6 +180,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnLogar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JPasswordField txtSenha;
